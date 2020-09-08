@@ -31,11 +31,13 @@ final class CarouselCellView: UIView {
     collectionView.dataSource = self
     addSubview(collectionView)
 
+    let bottomEdgeConstraint = collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
+    bottomEdgeConstraint.priority = .defaultLow
+
     NSLayoutConstraint.activate([
-      widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.width),
       collectionView.heightAnchor.constraint(equalToConstant: 300.0),
       collectionView.topAnchor.constraint(equalTo: topAnchor),
-      collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
+      bottomEdgeConstraint,
       collectionView.leftAnchor.constraint(equalTo: leftAnchor),
       collectionView.rightAnchor.constraint(equalTo: rightAnchor)])
   }
