@@ -46,6 +46,7 @@ final class CollectionViewController: UICollectionViewController, UICollectionVi
     collectionView.delegate = self
     collectionView.register(cell: HeadlineSummaryCell.self)
     collectionView.register(cell: ThumbnailCell.self)
+    collectionView.register(cell: CarouselCell.self)
   }
 }
 
@@ -65,17 +66,19 @@ final private class CollectionViewDataSource: NSObject, UICollectionViewDataSour
     let headline = ContentGenerator.words(min: 2,8)
     let summary = ContentGenerator.words(min: 20,40)
 
-    switch indexPath.row % 2 {
-    case 0:
+    let itemNumber = indexPath.row + 1
+
+    if itemNumber % 5 == 0 {
+      let cell: CarouselCell = collectionView.dequeue(for: indexPath)
+      return cell
+    } else if itemNumber % 4 == 0 {
       let cell: HeadlineSummaryCell = collectionView.dequeue(for: indexPath)
       cell.set(headline: headline, summary: summary)
       return cell
-    case 1:
+    } else {
       let cell: ThumbnailCell = collectionView.dequeue(for: indexPath)
       cell.set(headline: headline, summary: summary)
       return cell
-    default:
-      fatalError()
     }
   }
 }
